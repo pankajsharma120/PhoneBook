@@ -7,32 +7,32 @@ var personSchema = new mongoose.Schema({
     },
     email: [{
       type: String,
-      required: "Email is required."
+    }],
+    phonenumber: [{
+      type: String,
+      required: "Atleast one Phonenumber is required."
     }],
     dob: {
         type: Date
     }
 });
 
-var phoneNumberSchema = new mongoose.Schema({
-  phonenumber: {
-    type: String,
-    required: "Phone number is required.",
-    unique: true,
-  },
-  person: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref : "Person",
-    required : "required"
+personSchema.path('phonenumber').validate((val) => {
+  if(val.length==0){
+    return "False"
   }
-})
+    return true;
+}, 'At least one phone number is required.');
 
 
-// Custom validation for email
 personSchema.path('email').validate((val) => {
     emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return emailRegex.test(val);
+    for(const email of val){
+      if(!emailRegex.test(email)){
+        return false;
+      }
+    }
+    return true;
 }, 'Invalid e-mail.');
 
 mongoose.model('Person', personSchema);
-mongoose.model('Phonenumber', phoneNumberSchema);
