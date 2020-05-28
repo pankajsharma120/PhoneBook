@@ -15,7 +15,7 @@ Node js CRUD web application.
     Jquery
     
 
-Operations User can do
+-Operations User can do
     - Add a contact
     - Remove a contact
     - Update a contact
@@ -28,13 +28,13 @@ Operations User can do
 - Pagination with default 4 results per page
 - Search results be sorts alphabetically (by name).
 
-Contact
+-Contact
     - Will have a Name (required)
     - Will/Can have multiple phone numbers (should have at least 1 phone number)
     - Will/Can have multiple emails
     - Will/Can have single Date of birth (not mandatory)
     
-Constraints
+-Constraints
     - Two contacts cannot have same phone numbers
     - Two contacts can have the same emails.
 
