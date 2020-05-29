@@ -2,7 +2,7 @@ const express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
 const Person = mongoose.model('Person');
-const utils = require('./../config/utils.js');
+const utils = require('./../helpers/utils.js');
 
 router.get('/validate-phone', async (req, res) => {
     isOk = await isPhnOk(req.query.phn_no,req.query.pid)
