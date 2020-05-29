@@ -19,7 +19,7 @@ router.post('/delete', async (req, res) => {
           res.json({'status':"202"});
       }
       else {
-        console.log('Error in employee delete :' + err);
+        console.log('Error in delete :' + err);
         res.json({'status':"400"});
        }
   });
