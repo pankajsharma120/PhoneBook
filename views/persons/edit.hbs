@@ -2,21 +2,23 @@
 <link rel="stylesheet" href="/css/bootstrap-datepicker.min.css">
 
 <h3>{{viewTitle}}</h3>
+
   {{#each person.errors }}
   <div class="alert alert-danger">
     <p>{{this}}</p>
   </div>
   {{/each}}
 
-<form action="/person/add" method="POST" autocomplete="off" onsubmit="return validateForm(event);">
+<form action="/person/edit" method="POST" autocomplete="off" onsubmit="return validateForm(event);">
+    <input type="hidden" name="_id" value="{{person._id}}">
     <div class="form-group">
         <label>Name</label>
-        <input type="text" class="form-control" name="name" placeholder="Full Name" required>
+        <input type="text" class="form-control" name="name" value="{{person.name}}" required>
     </div>
     <div class="form-row">
         <div class="form-group date col-md-12" data-provide="datepicker">
           <label>Date Of Birth</label>
-          <input type="text" class="form-control" name="dob" placeholder="Date Of Birth">
+          <input type="text" class="form-control" name="dob" placeholder="Date Of Birth" value="{{person.dob}}">
           <div class="input-group-addon">
               <span class="glyphicon glyphicon-th"></span>
           </div>
@@ -25,24 +27,38 @@
     <div class="form-row">
         <div class="form-group col-md-11">
             <label>Phonenumber</label>
-            <input data-name="mobile0" type="number" class="form-control" name="mobile0" placeholder="Mobile" required>
+            <input data-name="mobile0" type="number" class="form-control" name="mobile0" value="{{person.phonenumber.[0]}}" required>
             <small class="invalid-feedback">Contact with this number already exist.</small>
         </div>
         <div class="form-group col-md-1 text-center">
             <span id="id_add_phn_field" class="fa fa-plus-circle" style="position: relative;top: 36px;font-size: 26px;cursor: pointer;"></span>
         </div>
     </div>
+    {{#each person.phonenumber}}
+      {{#if @index}}
+        <div id="id_phn_warp_{{@index}}" class="form-row">
+            <div class="form-group col-md-11">
+                <label>Phonenumber {{@index}}</label>
+                <input type="number" class="form-control" name="mobile{{@index}}" value="{{this}}" required>
+                <small class="invalid-feedback">Contact with this number already exist.</small>
+            </div>
+            <div class="form-group col-md-1 text-center">
+                <span data-target="{{@index}}" class="delete_phn fa fa-times-circle" style="position: relative;top: 36px;font-size: 26px;cursor: pointer;"></span>
+            </div>
+        </div>
+      {{/if}}
+    {{/each}}
     <div class="form-row">
         <div class="form-group col-md-11">
             <label>Email</label>
-            <input type="email" class="form-control" name="email0" placeholder="Email">
+            <input type="email" class="form-control" name="email0" value="{{person.email.[0]}}">
         </div>
         <div class="form-group col-md-1 text-center">
             <span id="id_add_email_field" class="fa fa-plus-circle" style="position: relative;top: 36px;font-size: 26px;cursor: pointer;"></span>
         </div>
     </div>
     <div class="form-group">
-        <button type="submit" id="id_submitBtn" class="btn btn-info">Add</button>
+        <button type="submit" id="id_submitBtn" class="btn btn-info">Update</button>
         <a class="btn btn-secondary" href="/person"> View All</a>
     </div>
 </form>
@@ -52,5 +68,5 @@
     $('[name="dob"]').datepicker({
     });
 </script>
-<script src="/js/addNewFields.js" charset="utf-8"></script>
 <script src="/js/form-validation.js" charset="utf-8"></script>
+<script src="/js/addNewFields.js" charset="utf-8"></script>

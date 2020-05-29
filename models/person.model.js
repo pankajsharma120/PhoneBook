@@ -19,7 +19,7 @@ var personSchema = new mongoose.Schema({
 
 personSchema.path('phonenumber').validate((val) => {
   if(val.length==0){
-    return "False"
+    return false
   }
     return true;
 }, 'At least one phone number is required.');
@@ -28,7 +28,7 @@ personSchema.path('phonenumber').validate((val) => {
 personSchema.path('email').validate((val) => {
     emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     for(const email of val){
-      if(!emailRegex.test(email)){
+      if(email!='' && !emailRegex.test(email)){
         return false;
       }
     }

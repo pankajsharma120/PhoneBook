@@ -12,7 +12,7 @@
 
 <div class="accordion" id="accordionExample">
   {{#each object_list}}
-    <div class="card">
+    <div id="card_{{this._id}}" class="card">
       <div class="card-header" id="headingOne">
         <h2 class="mb-0">
           <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{@index}}" aria-expanded="true" aria-controls="collapse{{@index}}">
@@ -20,15 +20,15 @@
           </button>
         </h2>
       </div>
-      <div id="collapse{{@index}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div id="collapse{{@index}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
         <div class="card-body">
           <div class="row">
             <div class="col-3">
               {{this.dob}}
             </div>
             <div class="col">
-              <button type="button" class="btn btn-sm btn-info m-2 float-right" name="button">Edit</button>
-              <button type="button" class="btn btn-sm btn-danger m-2 float-right" name="button">Delete</button>
+              <a href="/person/edit/{{this._id}}" class="btn btn-sm btn-info m-2 float-right" name="button">Edit</a>
+              <button data-target="{{this._id}}" type="button" class="delete_rec btn btn-sm btn-danger m-2 float-right" name="button">Delete</button>
             </div>
           </div>
           <div class="row">
@@ -48,3 +48,24 @@
     </div>
   {{/each}}
 </div>
+
+  <ul class="pagination float-right m-3">
+    {{#if (gt currentPage 1)}}
+      <li class="page-item"><a class="page-link" href="/person{{#if url_with_q}}/?{{url_with_q}}&{{else}}/?{{/if}}page={{previous_page_number}}">&laquo;</a></li>
+    {{else}}
+      <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+    {{/if}}
+    {{#times 1 totalPages 1}}
+      {{#if (eq currentPage @index)}}
+        <li class="active page-item"><span class="page-link">{{ @index }} <span class="sr-only">(currentPage)</span></span></li>
+      {{else}}
+        <li class="page-item"><a class="page-link" href="/person{{#if url_with_q}}/?{{url_with_q}}&{{else}}/?{{/if}}page={{@index}}">{{ @index }}</a></li>
+      {{/if}}
+    {{/times}}
+    {{#if (lt currentPage totalPages)}}
+      <li class="page-item"><a class="page-link" href="/person{{#if url_with_q}}/?{{url_with_q}}&{{else}}/?{{/if}}page={{next_page_number}}">&raquo;</a></li>
+    {{else}}
+      <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+    {{/if}}
+  </ul>
+<script src="/js/handelDelete.js" charset="utf-8"></script>

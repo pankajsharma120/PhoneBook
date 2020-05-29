@@ -15,7 +15,7 @@ app.use(bodyparser.urlencoded({
 
 app.use(bodyparser.json());
 app.set('views', path.join(__dirname, '/views/'));
-app.engine('hbs', exphbs({ extname: 'hbs', defaultLayout: 'mainLayout', layoutsDir: __dirname + '/views/layouts/' }));
+app.engine('hbs', exphbs({ extname: 'hbs', defaultLayout: 'mainLayout', layoutsDir: __dirname + '/views/layouts/',helpers: require('./config/handlebars-helpers') }));
 app.set('view engine', 'hbs');
 
 app.use(express.static(path.join(__dirname, 'public')));
