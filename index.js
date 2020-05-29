@@ -7,6 +7,8 @@ const bodyparser = require('body-parser');
 
 const personController = require('./controllers/personController');
 
+var router = express.Router();
+
 var app = express();
 app.use(bodyparser.urlencoded({
     extended: true
@@ -23,5 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.listen(3000, () => {
     console.log('Express server started at port : 3000');
 });
-
+app.use('/',router.get('/',(req,res)=>{
+  res.render("home")
+}))
 app.use('/person', personController);
