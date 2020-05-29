@@ -148,7 +148,7 @@ router.post('/add', async (req, res) => {
       person.dob = req.body.dob;
       person.save((err, doc) => {
           if (!err)
-              res.redirect('/');
+              res.redirect('/person');
           else {
               if (err.name == 'ValidationError') {
                   handleValidationError(err, req.body);

@@ -21,8 +21,8 @@ app.engine('hbs', exphbs({ extname: 'hbs', defaultLayout: 'mainLayout', layoutsD
 app.set('view engine', 'hbs');
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.listen(3000, () => {
+const port = process.env.PORT || 3000
+app.listen(port, () => {
     console.log('Express server started at port : 3000');
 });
 app.use('/',router.get('/',(req,res)=>{
